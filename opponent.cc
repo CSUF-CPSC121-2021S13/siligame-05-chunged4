@@ -2,7 +2,7 @@
 
 // Opponent constructors
 Opponent::Opponent() : Opponent(0, 0) {}
-Opponent::Opponent(int x, int y) : GameElement(x, y, 50, 46) {}
+Opponent::Opponent(int x, int y) : GameElement(x, y, 50, 46), shootCounter_(0) {}
 
 // getters/setters
 bool Opponent::GetXToggle() const { return XToggle_; }
@@ -60,6 +60,17 @@ void Opponent::Move(const graphics::Image &image) {
   }
   if (IsOutOfBounds(image)) {
     SetIsActive(false);
+  }
+}
+std::unique_ptr<OpponentProjectile> Opponent::LaunchProjectile() {
+  shootCounter_++;
+  std::unique_ptr<OpponentProjectile> oProj_ptr = std::make_unique<OpponentProjectile>();
+  oProj_ptr->SetX(GetWidth() / 2);
+  oProj_ptr->SetY(GetHeight());
+  if (shootCounter_ % 10 == 0) {
+    return oProj_ptr;
+  } else {
+    return nullptr;
   }
 }
 

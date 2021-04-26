@@ -1,4 +1,5 @@
 #include <iostream>
+#include <memory>
 
 #include "cpputils/graphics/image.h"
 
