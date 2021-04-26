@@ -11,14 +11,14 @@ class Player : public GameElement {
   Player(int x, int y);
   // Getters/setters
   int GetToggle() const;
-  void SetToggle(int toggle);
+  void SetToggle(int drawToggle);
   //  Member Functions
   void Draw(graphics::Image &image) override;
   void DrawBackwords(graphics::Image &image);
   void Move(const graphics::Image &image) override;
 
  private:
-  int toggle_;
+  int drawToggle_;
 };
 
 class PlayerProjectile : public GameElement {

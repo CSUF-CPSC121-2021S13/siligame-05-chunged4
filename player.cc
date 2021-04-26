@@ -2,11 +2,11 @@
 
 // Player constructors
 Player::Player() : Player(0, 0) {}
-Player::Player(int x, int y) : GameElement(x, y, 50, 50), toggle_(1) {}
+Player::Player(int x, int y) : GameElement(x, y, 50, 50), drawToggle_(1) {}
 
 // getters/setters
-int Player::GetToggle() const { return toggle_; }
-void Player::SetToggle(int toggle) { toggle_ = toggle; }
+int Player::GetToggle() const { return drawToggle_; }
+void Player::SetToggle(int drawToggle) { drawToggle_ = drawToggle; }
 
 // Player member functions
 void Player::Draw(graphics::Image &image) {

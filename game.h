@@ -19,15 +19,15 @@ class Game : public graphics::AnimationEventListener,
 
   //  Getters/Setters
   graphics::Image &GetGameScreen();
-  std::vector<Opponent> &GetOpponents();
-  std::vector<OpponentProjectile> &GetOpponentProjectiles();
-  std::vector<PlayerProjectile> &GetPlayerProjectiles();
+  std::vector<std::unique_ptr<Opponent>> &GetOpponents();
+  std::vector<std::unique_ptr<OpponentProjectile>> &GetOpponentProjectiles();
+  std::vector<std::unique_ptr<PlayerProjectile>> &GetPlayerProjectiles();
   Player &GetPlayer();
+  int GetScore() const;
+  bool HasLost() const;
 
   //  Member Functions
   void CreateOpponents();
-  void CreateOpponentProjectiles();
-  void CreatePlayerProjectiles();
   void Init();
   void UpdateScreen();
   void Start();
@@ -38,10 +38,12 @@ class Game : public graphics::AnimationEventListener,
 
  private:
   graphics::Image gameScreen_;
-  std::vector<Opponent> enemies_;
-  std::vector<OpponentProjectile> balls_;
-  std::vector<PlayerProjectile> lBolts_;
+  std::vector<std::unique_ptr<Opponent>> enemies_;
+  std::vector<std::unique_ptr<OpponentProjectile>> balls_;
+  std::vector<std::unique_ptr<PlayerProjectile>> lBolts_;
   Player thePlayer_;
+  int score_;
+  bool playing_;
 };
 
 #endif

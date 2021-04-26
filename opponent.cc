@@ -5,6 +5,8 @@ Opponent::Opponent() : Opponent(0, 0) {}
 Opponent::Opponent(int x, int y) : GameElement(x, y, 50, 46), shootCounter_(0) {}
 
 // getters/setters
+int Opponent::GetToggle() const { return drawToggle_; }
+void Opponent::SetToggle(int drawToggle) { drawToggle_ = drawToggle; }
 bool Opponent::GetXToggle() const { return XToggle_; }
 void Opponent::SetXToggle(bool xToggle) { XToggle_ = xToggle; }
 bool Opponent::GetYToggle() const { return YToggle_; }
@@ -46,17 +48,19 @@ void Opponent::Move(const graphics::Image &image) {
   } else if (GetY() <= GetHeight() / 2) {
     SetYToggle(false);
   }
-  int randX = 2;
-  int randY = 2;
+  int xSpeed = 2;
+  int ySpeed = 2;
   if (GetXToggle()) {
-    SetX(GetX() - randX);
+    SetX(GetX() - xSpeed);
+    SetToggle(1);
   } else {
-    SetX(GetX() + randX);
+    SetX(GetX() + xSpeed);
+    SetToggle(2);
   }
   if (GetYToggle()) {
-    SetY(GetY() - randY);
+    SetY(GetY() - ySpeed);
   } else {
-    SetY(GetY() + randY);
+    SetY(GetY() + ySpeed);
   }
   if (IsOutOfBounds(image)) {
     SetIsActive(false);

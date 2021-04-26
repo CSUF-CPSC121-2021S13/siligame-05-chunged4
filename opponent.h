@@ -13,6 +13,9 @@ class Opponent : public GameElement {
   void SetXToggle(bool xToggle);
   bool GetYToggle() const;
   void SetYToggle(bool yToggle);
+  int GetToggle() const;
+  void SetToggle(int drawToggle);
+  
   //  Member Functions
   void Draw(graphics::Image &image) override;
   void DrawBackwords(graphics::Image &image);
@@ -23,6 +26,7 @@ class Opponent : public GameElement {
   bool XToggle_;
   bool YToggle_;
   int shootCounter_;
+  int drawToggle_;
 };
 
 class OpponentProjectile : public GameElement {
