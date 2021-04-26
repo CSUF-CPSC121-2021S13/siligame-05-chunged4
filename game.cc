@@ -120,8 +120,17 @@ void Game::FilterIntersections() {
   }
 }
 void Game::OnAnimationStep() {
+  if (enemies_.size() == 0) {
+    CreateOpponents();
+    CreateOpponents();
+    CreateOpponents();
+  }
   MoveGameElements();
+  for (int i = 0; i < enemies_.size(); i++) {
+    enemies_[i]->LaunchProjectile();
+  }
   FilterIntersections();
+  RemoveInactive();
   UpdateScreen();
   gameScreen_.Flush();
 }
@@ -159,7 +168,26 @@ void Game::OnMouseEvent(const graphics::MouseEvent &event) {
        event.GetMouseAction() != graphics::MouseAction::kReleased) ||
        event.GetMouseAction() == graphics::MouseAction::kDragged) {
     if (thePlayer_.GetIsActive()) {
-      
+      std::unique_ptr<PlayerProjectile> bolt = std::make_unique<PlayerProjectile>();
+      bolt->SetX(thePlayer_.GetWidth() / 2);
+      lBolts_.push_back(bolt);
+    }
+  }
+}
+void Game::RemoveInactive() {
+  for (int i = enemies_.size(); i > 0; i--) {
+    if (!(enemies_[i]->GetIsActive())) {
+      enemies_.erase(enemies_.begin() + i);
+    }
+  }
+  for (int i = balls_.size(); i > 0; i--) {
+    if (!(balls_[i]->GetIsActive())) {
+      balls_.erase(balls_.begin() + i);
+    }
+  }
+  for (int i = lBolts_.size(); i > 0; i--) {
+    if (!(lBolts_[i]->GetIsActive())) {
+      lBolts_.erase(lBolts_.begin() + i);
     }
   }
 }

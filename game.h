@@ -35,6 +35,7 @@ class Game : public graphics::AnimationEventListener,
   void FilterIntersections();
   void OnAnimationStep() override;
   void OnMouseEvent(const graphics::MouseEvent &event) override;
+  void RemoveInactive();
 
  private:
   graphics::Image gameScreen_;
