@@ -20,7 +20,7 @@ void Game::CreateOpponents() {
   std::unique_ptr<Opponent> opponent = std::make_unique<Opponent>();
   opponent->SetX(opponent->GetWidth());
   opponent->SetY(opponent->GetHeight());
-  GetOpponents().push_back(opponent);
+  GetOpponents().push_back(std::move(opponent));
 }
 void Game::Init() {
   int xPos = gameScreen_.GetWidth() / 2;
@@ -170,7 +170,7 @@ void Game::OnMouseEvent(const graphics::MouseEvent &event) {
     if (thePlayer_.GetIsActive()) {
       std::unique_ptr<PlayerProjectile> bolt = std::make_unique<PlayerProjectile>();
       bolt->SetX(thePlayer_.GetWidth() / 2);
-      lBolts_.push_back(bolt);
+      lBolts_.push_back(std::move(bolt));
     }
   }
 }
