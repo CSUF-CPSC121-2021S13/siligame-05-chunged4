@@ -2,7 +2,7 @@
 #include "game_element.h"
 
 int main() {
-//   srand(time(NULL));
+  //   srand(time(NULL));
   Game game;
   game.Init();
   game.Start();

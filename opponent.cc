@@ -1,6 +1,5 @@
 #include "opponent.h"
 
-
 // OpponentProjectile constructors
 OpponentProjectile::OpponentProjectile() : OpponentProjectile(0, 0) {}
 OpponentProjectile::OpponentProjectile(int x, int y)
@@ -28,7 +27,8 @@ void OpponentProjectile::Move(const graphics::Image &image) {
 
 // Opponent constructors
 Opponent::Opponent() : Opponent(0, 0) {}
-Opponent::Opponent(int x, int y) : GameElement(x, y, 50, 46), shootCounter_(0) {}
+Opponent::Opponent(int x, int y)
+    : GameElement(x, y, 50, 46), shootCounter_(0) {}
 
 // getters/setters
 int Opponent::GetToggle() const { return drawToggle_; }
@@ -58,7 +58,8 @@ void Opponent::DrawBackwords(graphics::Image &image) {
   for (int i = pImage.GetWidth() - 1; i >= 0; i--) {
     for (int j = pImage.GetHeight() - 1; j >= 0; j--) {
       if (pImage.GetColor(i, j) != green) {
-        image.SetColor(GetX() + (GetWidth() - i), GetY() + j, pImage.GetColor(i, j));
+        image.SetColor(GetX() + (GetWidth() - i), GetY() + j,
+                       pImage.GetColor(i, j));
       }
     }
   }
@@ -94,7 +95,8 @@ void Opponent::Move(const graphics::Image &image) {
 }
 std::unique_ptr<OpponentProjectile> Opponent::LaunchProjectile() {
   shootCounter_++;
-  std::unique_ptr<OpponentProjectile> oProj_ptr = std::make_unique<OpponentProjectile>();
+  std::unique_ptr<OpponentProjectile> oProj_ptr =
+      std::make_unique<OpponentProjectile>();
   oProj_ptr->SetX(GetWidth() / 2);
   oProj_ptr->SetY(GetHeight());
   if (shootCounter_ % 10 == 0) {

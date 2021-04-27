@@ -28,7 +28,8 @@ void Player::DrawBackwords(graphics::Image &image) {
   for (int i = pImage.GetWidth() - 1; i >= 0; i--) {
     for (int j = pImage.GetHeight() - 1; j >= 0; j--) {
       if (pImage.GetColor(i, j) != green) {
-        image.SetColor(GetX() + (GetWidth() - i), GetY() + j, pImage.GetColor(i, j));
+        image.SetColor(GetX() + (GetWidth() - i), GetY() + j,
+                       pImage.GetColor(i, j));
       }
     }
   }

@@ -6,11 +6,16 @@ Game::Game(int width, int height) { gameScreen_.Initialize(width, height); }
 
 // getters/setters
 graphics::Image &Game::GetGameScreen() { return gameScreen_; }
-std::vector<std::unique_ptr<Opponent>> &Game::GetOpponents() { return enemies_; }
-std::vector<std::unique_ptr<OpponentProjectile>> &Game::GetOpponentProjectiles() {
+std::vector<std::unique_ptr<Opponent>> &Game::GetOpponents() {
+  return enemies_;
+}
+std::vector<std::unique_ptr<OpponentProjectile>>
+    &Game::GetOpponentProjectiles() {
   return balls_;
 }
-std::vector<std::unique_ptr<PlayerProjectile>> &Game::GetPlayerProjectiles() { return lBolts_; }
+std::vector<std::unique_ptr<PlayerProjectile>> &Game::GetPlayerProjectiles() {
+  return lBolts_;
+}
 Player &Game::GetPlayer() { return thePlayer_; }
 int Game::GetScore() const { return score_; }
 bool Game::HasLost() const { return playing_; }
@@ -38,7 +43,8 @@ void Game::Init() {
 void Game::UpdateScreen() {
   graphics::Color black(0, 0, 0);
   if (HasLost()) {
-    gameScreen_.DrawText(gameScreen_.GetWidth() / 2, gameScreen_.GetHeight() / 2, "GAME OVER", 400, black);
+    gameScreen_.DrawText(gameScreen_.GetWidth() / 2,
+                         gameScreen_.GetHeight() / 2, "GAME OVER", 400, black);
   }
   gameScreen_.DrawRectangle(0, 0, gameScreen_.GetWidth(),
                             gameScreen_.GetHeight(), lightBlue);
@@ -139,7 +145,8 @@ void Game::OnMouseEvent(const graphics::MouseEvent &event) {
       event.GetMouseAction() == graphics::MouseAction::kDragged) {
     if (event.GetX() - (thePlayer_.GetX() + thePlayer_.GetWidth() / 2) > 0) {
       thePlayer_.SetToggle(2);
-    } else if (event.GetX() - (thePlayer_.GetX() + thePlayer_.GetWidth() / 2) < 0) {
+    } else if (event.GetX() - (thePlayer_.GetX() + thePlayer_.GetWidth() / 2) <
+               0) {
       thePlayer_.SetToggle(1);
     }
     if (event.GetX() > 0 || event.GetX() < gameScreen_.GetWidth() ||
@@ -166,9 +173,10 @@ void Game::OnMouseEvent(const graphics::MouseEvent &event) {
   }
   if ((event.GetMouseAction() == graphics::MouseAction::kPressed &&
        event.GetMouseAction() != graphics::MouseAction::kReleased) ||
-       event.GetMouseAction() == graphics::MouseAction::kDragged) {
+      event.GetMouseAction() == graphics::MouseAction::kDragged) {
     if (thePlayer_.GetIsActive()) {
-      std::unique_ptr<PlayerProjectile> bolt = std::make_unique<PlayerProjectile>();
+      std::unique_ptr<PlayerProjectile> bolt =
+          std::make_unique<PlayerProjectile>();
       bolt->SetX(thePlayer_.GetWidth() / 2);
       lBolts_.push_back(std::move(bolt));
     }

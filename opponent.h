@@ -27,7 +27,7 @@ class Opponent : public GameElement {
   void SetYToggle(bool yToggle);
   int GetToggle() const;
   void SetToggle(int drawToggle);
-  
+
   //  Member Functions
   void Draw(graphics::Image &image) override;
   void DrawBackwords(graphics::Image &image);
