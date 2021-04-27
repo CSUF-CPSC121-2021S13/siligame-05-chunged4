@@ -1,5 +1,31 @@
 #include "opponent.h"
 
+
+// OpponentProjectile constructors
+OpponentProjectile::OpponentProjectile() : OpponentProjectile(0, 0) {}
+OpponentProjectile::OpponentProjectile(int x, int y)
+    : GameElement(x, y, 12, 12) {}
+
+// OpponentProjectile member functions
+void OpponentProjectile::Draw(graphics::Image &image) {
+  graphics::Image opImage(GetWidth(), GetHeight());
+  opImage.Load("pokeball.bmp");
+  graphics::Color green(0, 255, 0);
+  for (int i = 0; i < opImage.GetWidth(); i++) {
+    for (int j = 0; j < opImage.GetHeight(); j++) {
+      if (opImage.GetColor(i, j) != green) {
+        image.SetColor(GetX() + i, GetY() + j, opImage.GetColor(i, j));
+      }
+    }
+  }
+}
+void OpponentProjectile::Move(const graphics::Image &image) {
+  SetY(GetY() + 3);
+  if (IsOutOfBounds(image)) {
+    SetIsActive(false);
+  }
+}
+
 // Opponent constructors
 Opponent::Opponent() : Opponent(0, 0) {}
 Opponent::Opponent(int x, int y) : GameElement(x, y, 50, 46), shootCounter_(0) {}
@@ -66,39 +92,15 @@ void Opponent::Move(const graphics::Image &image) {
     SetIsActive(false);
   }
 }
-std::unique_ptr<OpponentProjectile> Opponent::LaunchProjectile() {
+std::unique_ptr<OpponentProjectile> Opponent::LaunchProjectiles() {
   shootCounter_++;
   std::unique_ptr<OpponentProjectile> oProj_ptr = std::make_unique<OpponentProjectile>();
   oProj_ptr->SetX(GetWidth() / 2);
   oProj_ptr->SetY(GetHeight());
   if (shootCounter_ % 10 == 0) {
+    shootCounter_ = 0;
     return oProj_ptr;
   } else {
     return nullptr;
-  }
-}
-
-// OpponentProjectile constructors
-OpponentProjectile::OpponentProjectile() : OpponentProjectile(0, 0) {}
-OpponentProjectile::OpponentProjectile(int x, int y)
-    : GameElement(x, y, 12, 12) {}
-
-// OpponentProjectile member functions
-void OpponentProjectile::Draw(graphics::Image &image) {
-  graphics::Image opImage(GetWidth(), GetHeight());
-  opImage.Load("pokeball.bmp");
-  graphics::Color green(0, 255, 0);
-  for (int i = 0; i < opImage.GetWidth(); i++) {
-    for (int j = 0; j < opImage.GetHeight(); j++) {
-      if (opImage.GetColor(i, j) != green) {
-        image.SetColor(GetX() + i, GetY() + j, opImage.GetColor(i, j));
-      }
-    }
-  }
-}
-void OpponentProjectile::Move(const graphics::Image &image) {
-  SetY(GetY() + 3);
-  if (IsOutOfBounds(image)) {
-    SetIsActive(false);
   }
 }

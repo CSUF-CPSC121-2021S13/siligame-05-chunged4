@@ -3,6 +3,18 @@
 #ifndef OPPONENT_H
 #define OPPONENT_H
 
+class OpponentProjectile : public GameElement {
+ public:
+  //  Constructors
+  OpponentProjectile();
+  OpponentProjectile(int x, int y);
+  //  Member Functions
+  void Draw(graphics::Image &image) override;
+  void Move(const graphics::Image &image) override;
+
+ private:
+};
+
 class Opponent : public GameElement {
  public:
   //  Constructors
@@ -20,25 +32,13 @@ class Opponent : public GameElement {
   void Draw(graphics::Image &image) override;
   void DrawBackwords(graphics::Image &image);
   void Move(const graphics::Image &image) override;
-  std::unique_ptr<OpponentProjectile> LaunchProjectile();
+  std::unique_ptr<OpponentProjectile> LaunchProjectiles();
 
  private:
   bool XToggle_;
   bool YToggle_;
   int shootCounter_;
   int drawToggle_;
-};
-
-class OpponentProjectile : public GameElement {
- public:
-  //  Constructors
-  OpponentProjectile();
-  OpponentProjectile(int x, int y);
-  //  Member Functions
-  void Draw(graphics::Image &image) override;
-  void Move(const graphics::Image &image) override;
-
- private:
 };
 
 #endif
