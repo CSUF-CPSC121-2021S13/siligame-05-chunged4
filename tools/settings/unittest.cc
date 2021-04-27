@@ -527,7 +527,7 @@ TEST(Game, MoveInActiveGameElements) {
   MoveInActiveGameElements();
 }
 
-void LaunchProjectile() {
+void LaunchProjectiles() {
   Game my_game;
   std::vector<std::unique_ptr<Opponent>>& opponents = my_game.GetOpponents();
 
@@ -536,7 +536,7 @@ void LaunchProjectile() {
   
   bool has_projectile = false;
   for (int i = 0; i < 100 && !has_projectile; i++) {
-    opponents->LaunchProjectile();
+    my_game.LaunchProjectiles();
     if (my_game.GetOpponentProjectiles().size() > 0) {
       has_projectile = true;
     }
@@ -544,10 +544,10 @@ void LaunchProjectile() {
   ASSERT_TRUE(has_projectile) << "Opponents should launch a projectile.";
 }
 
-TEST(Game, LaunchProjectile) {
-  ASSERT_EXIT((LaunchProjectile(),exit(0)),::testing::ExitedWithCode(0),".*")
+TEST(Game, LaunchProjectiles) {
+  ASSERT_EXIT((LaunchProjectiles(),exit(0)),::testing::ExitedWithCode(0),".*")
         << "    Should not crash or infinitely loop.";
-  LaunchProjectile();
+  LaunchProjectiles();
 }
 
 void FilterIntersectionsWithOpponentProjectile() {
