@@ -2,7 +2,7 @@
 
 // constructors
 Game::Game() : Game(800, 600) {}
-Game::Game(int width, int height) { gameScreen_.Initialize(width, height); }
+Game::Game(int width, int height) : score_(0) { gameScreen_.Initialize(width, height); }
 
 // getters/setters
 graphics::Image &Game::GetGameScreen() { return gameScreen_; }
