@@ -1,3 +1,5 @@
+#include <time.h>
+
 #include "game_element.h"
 
 #ifndef OPPONENT_H
@@ -39,6 +41,8 @@ class Opponent : public GameElement {
   bool YToggle_;
   int shootCounter_;
   int drawToggle_;
+  int xSpeed_ = 3;
+  int ySpeed_ = 3;
 };
 
 #endif

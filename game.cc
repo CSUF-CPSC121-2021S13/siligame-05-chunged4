@@ -23,8 +23,12 @@ bool Game::HasLost() const { return playing_; }
 // Member Functions
 void Game::CreateOpponents() {
   std::unique_ptr<Opponent> opponent = std::make_unique<Opponent>();
-  opponent->SetX(opponent->GetWidth());
-  opponent->SetY(opponent->GetHeight());
+  int xPos = rand() % (gameScreen_.GetWidth() - opponent->GetWidth() / 2) +
+                       opponent->GetWidth() / 2;
+  int yPos = rand() % (gameScreen_.GetHeight() - opponent->GetHeight() / 2) +
+                       opponent->GetHeight() / 2;
+  opponent->SetX(xPos);
+  opponent->SetY(yPos);
   GetOpponents().push_back(std::move(opponent));
 }
 void Game::Init() {
@@ -44,12 +48,13 @@ void Game::UpdateScreen() {
   graphics::Color black(0, 0, 0);
   if (HasLost()) {
     gameScreen_.DrawText(gameScreen_.GetWidth() / 2,
-                         gameScreen_.GetHeight() / 2, "GAME OVER", 400, black);
+                         gameScreen_.GetHeight() / 2, "GAME OVER", 200, black);
   }
   gameScreen_.DrawRectangle(0, 0, gameScreen_.GetWidth(),
                             gameScreen_.GetHeight(), lightBlue);
-  std::string scoreMsg = "Score: " + std::to_string(score_);
-  gameScreen_.DrawText(0, 0, scoreMsg, 50, black);
+  std::string scoreMsg = "Score: ";
+  scoreMsg.append((char *)score_);
+  gameScreen_.DrawText(0, 0, scoreMsg, 30, black);
   for (int i = 0; i < enemies_.size(); i++) {
     if (enemies_[i]->GetIsActive() && enemies_[i]->GetToggle() == 1) {
       enemies_[i]->Draw(gameScreen_);
@@ -153,7 +158,7 @@ void Game::OnAnimationStep() {
     enemies_[i]->LaunchProjectile();
   }
   FilterIntersections();
-  RemoveInactive();
+  // RemoveInactive();
   UpdateScreen();
   gameScreen_.Flush();
 }
@@ -171,24 +176,20 @@ void Game::OnMouseEvent(const graphics::MouseEvent &event) {
       thePlayer_.SetX(event.GetX() - (thePlayer_.GetWidth() / 2));
       thePlayer_.SetY(event.GetY() - (thePlayer_.GetHeight() / 2));
       if (thePlayer_.IsOutOfBounds(gameScreen_)) {
-        int xPos = gameScreen_.GetWidth() / 2;
-        int yPos = gameScreen_.GetWidth() * .75;
-        thePlayer_.SetX(xPos);
-        thePlayer_.SetY(yPos);
-          // if (thePlayer_.GetX() < 0) {
-          //   thePlayer_.SetX(event.GetX());
-          // }
-          // if (thePlayer_.GetY() < 0) {
-          //   thePlayer_.SetY(event.GetY());
-          // }
-          // if (thePlayer_.GetX() + thePlayer_.GetWidth() >
-          //     gameScreen_.GetWidth()) {
-          //   thePlayer_.SetX(event.GetX() - thePlayer_.GetWidth());
-          // }
-          // if (thePlayer_.GetY() + thePlayer_.GetHeight() >
-          //     gameScreen_.GetHeight()) {
-          //   thePlayer_.SetY(event.GetY() - thePlayer_.GetHeight());
-          // }
+        if (thePlayer_.GetX() < 0) {
+          thePlayer_.SetX(event.GetX());
+        }
+        if (thePlayer_.GetY() < 0) {
+          thePlayer_.SetY(event.GetY());
+        }
+        if (thePlayer_.GetX() + thePlayer_.GetWidth() >
+            gameScreen_.GetWidth()) {
+          thePlayer_.SetX(event.GetX() - thePlayer_.GetWidth());
+        }
+        if (thePlayer_.GetY() + thePlayer_.GetHeight() >
+            gameScreen_.GetHeight()) {
+          thePlayer_.SetY(event.GetY() - thePlayer_.GetHeight());
+        }
       }
     }
   }

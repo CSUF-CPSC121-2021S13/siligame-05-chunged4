@@ -70,24 +70,22 @@ void Opponent::Move(const graphics::Image &image) {
   } else if (GetX() <= GetWidth() / 2) {
     SetXToggle(false);
   }
-  if (GetHeight() + GetY() >= image.GetHeight() / 2) {
+  if (GetHeight() + GetY() >= image.GetHeight() - GetHeight() / 2) {
     SetYToggle(true);
   } else if (GetY() <= GetHeight() / 2) {
     SetYToggle(false);
   }
-  int xSpeed = 2;
-  int ySpeed = 2;
   if (GetXToggle()) {
-    SetX(GetX() - xSpeed);
+    SetX(GetX() - xSpeed_);
     SetToggle(1);
   } else {
-    SetX(GetX() + xSpeed);
+    SetX(GetX() + xSpeed_);
     SetToggle(2);
   }
   if (GetYToggle()) {
-    SetY(GetY() - ySpeed);
+    SetY(GetY() - ySpeed_);
   } else {
-    SetY(GetY() + ySpeed);
+    SetY(GetY() + ySpeed_);
   }
   if (IsOutOfBounds(image)) {
     SetIsActive(false);
