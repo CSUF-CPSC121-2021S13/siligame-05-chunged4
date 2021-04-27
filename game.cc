@@ -118,13 +118,10 @@ void Game::FilterIntersections() {
   // playerprojectile vs opponent intersections
   for (int i = 0; i < lBolts_.size(); i++) {
     for (int j = 0; j < enemies_.size(); j++) {
-      if (lBolts_[i]->IntersectsWith(enemies_[j].get())) {
+      if (lBolts_[i]->IntersectsWith(enemies_[j].get())  && thePlayer_.GetIsActive()) {
         lBolts_[i]->SetIsActive(false);
         enemies_[j]->SetIsActive(false);
-        if (thePlayer_.GetIsActive()) {
-          score_++;
-          playing_ = true;
-        }
+        score_++;
       }
     }
   }
@@ -198,7 +195,7 @@ void Game::OnMouseEvent(const graphics::MouseEvent &event) {
     if (thePlayer_.GetIsActive()) {
       std::unique_ptr<PlayerProjectile> bolt =
           std::make_unique<PlayerProjectile>();
-      bolt->SetX(thePlayer_.GetWidth() / 2);
+      bolt->SetX(thePlayer_.GetWidth() / 2 + thePlayer_.GetX());
       bolt->SetY(thePlayer_.GetY());
       lBolts_.push_back(std::move(bolt));
     }

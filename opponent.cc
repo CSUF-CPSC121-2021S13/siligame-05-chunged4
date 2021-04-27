@@ -95,8 +95,8 @@ std::unique_ptr<OpponentProjectile> Opponent::LaunchProjectile() {
   shootCounter_++;
   std::unique_ptr<OpponentProjectile> oProj_ptr =
       std::make_unique<OpponentProjectile>();
-  oProj_ptr->SetX(GetWidth() / 2);
-  oProj_ptr->SetY(GetHeight());
+  oProj_ptr->SetX(GetWidth() / 2 + GetX());
+  oProj_ptr->SetY(GetHeight() + GetY());
   if (shootCounter_ % 10 == 0) {
     shootCounter_ = 0;
     return oProj_ptr;
