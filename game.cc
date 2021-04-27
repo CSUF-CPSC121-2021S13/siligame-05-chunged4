@@ -125,6 +125,23 @@ void Game::FilterIntersections() {
     }
   }
 }
+void Game::RemoveInactive() {
+  for (int i = enemies_.size(); i > 0; i--) {
+    if (!(enemies_[i]->GetIsActive())) {
+      enemies_.erase(enemies_.begin() + i);
+    }
+  }
+  for (int i = balls_.size(); i > 0; i--) {
+    if (!(balls_[i]->GetIsActive())) {
+      balls_.erase(balls_.begin() + i);
+    }
+  }
+  for (int i = lBolts_.size(); i > 0; i--) {
+    if (!(lBolts_[i]->GetIsActive())) {
+      lBolts_.erase(lBolts_.begin() + i);
+    }
+  }
+}
 void Game::OnAnimationStep() {
   if (enemies_.size() == 0) {
     CreateOpponents();
@@ -141,33 +158,37 @@ void Game::OnAnimationStep() {
   gameScreen_.Flush();
 }
 void Game::OnMouseEvent(const graphics::MouseEvent &event) {
-  if (event.GetMouseAction() == graphics::MouseAction::kMoved ||
-      event.GetMouseAction() == graphics::MouseAction::kDragged) {
-    if (event.GetX() - (thePlayer_.GetX() + thePlayer_.GetWidth() / 2) > 0) {
-      thePlayer_.SetToggle(2);
-    } else if (event.GetX() - (thePlayer_.GetX() + thePlayer_.GetWidth() / 2) <
+  if (event.GetX() > 0 || event.GetX() < gameScreen_.GetWidth() ||
+      event.GetY() > 0 || event.GetY() < gameScreen_.GetHeight()) {
+    if (event.GetMouseAction() == graphics::MouseAction::kMoved ||
+        event.GetMouseAction() == graphics::MouseAction::kDragged) {
+      if (event.GetX() - (thePlayer_.GetX() + thePlayer_.GetWidth() / 2) > 0) {
+        thePlayer_.SetToggle(2);
+      } else if (event.GetX() - (thePlayer_.GetX() + thePlayer_.GetWidth() / 2) <
                0) {
-      thePlayer_.SetToggle(1);
-    }
-    if (event.GetX() > 0 || event.GetX() < gameScreen_.GetWidth() ||
-        event.GetY() > 0 || event.GetY() < gameScreen_.GetHeight()) {
+        thePlayer_.SetToggle(1);
+      }
       thePlayer_.SetX(event.GetX() - (thePlayer_.GetWidth() / 2));
       thePlayer_.SetY(event.GetY() - (thePlayer_.GetHeight() / 2));
       if (thePlayer_.IsOutOfBounds(gameScreen_)) {
-        if (thePlayer_.GetX() < 0) {
-          thePlayer_.SetX(event.GetX());
-        }
-        if (thePlayer_.GetY() < 0) {
-          thePlayer_.SetY(event.GetY());
-        }
-        if (thePlayer_.GetX() + thePlayer_.GetWidth() >
-            gameScreen_.GetWidth()) {
-          thePlayer_.SetX(event.GetX() - thePlayer_.GetWidth());
-        }
-        if (thePlayer_.GetY() + thePlayer_.GetHeight() >
-            gameScreen_.GetHeight()) {
-          thePlayer_.SetY(event.GetY() - thePlayer_.GetHeight());
-        }
+        int xPos = gameScreen_.GetWidth() / 2;
+        int yPos = gameScreen_.GetWidth() * .75;
+        thePlayer_.SetX(xPos);
+        thePlayer_.SetY(yPos);
+          // if (thePlayer_.GetX() < 0) {
+          //   thePlayer_.SetX(event.GetX());
+          // }
+          // if (thePlayer_.GetY() < 0) {
+          //   thePlayer_.SetY(event.GetY());
+          // }
+          // if (thePlayer_.GetX() + thePlayer_.GetWidth() >
+          //     gameScreen_.GetWidth()) {
+          //   thePlayer_.SetX(event.GetX() - thePlayer_.GetWidth());
+          // }
+          // if (thePlayer_.GetY() + thePlayer_.GetHeight() >
+          //     gameScreen_.GetHeight()) {
+          //   thePlayer_.SetY(event.GetY() - thePlayer_.GetHeight());
+          // }
       }
     }
   }
@@ -179,23 +200,6 @@ void Game::OnMouseEvent(const graphics::MouseEvent &event) {
           std::make_unique<PlayerProjectile>();
       bolt->SetX(thePlayer_.GetWidth() / 2);
       lBolts_.push_back(std::move(bolt));
-    }
-  }
-}
-void Game::RemoveInactive() {
-  for (int i = enemies_.size(); i > 0; i--) {
-    if (!(enemies_[i]->GetIsActive())) {
-      enemies_.erase(enemies_.begin() + i);
-    }
-  }
-  for (int i = balls_.size(); i > 0; i--) {
-    if (!(balls_[i]->GetIsActive())) {
-      balls_.erase(balls_.begin() + i);
-    }
-  }
-  for (int i = lBolts_.size(); i > 0; i--) {
-    if (!(lBolts_[i]->GetIsActive())) {
-      lBolts_.erase(lBolts_.begin() + i);
     }
   }
 }
