@@ -199,6 +199,7 @@ void Game::OnMouseEvent(const graphics::MouseEvent &event) {
       std::unique_ptr<PlayerProjectile> bolt =
           std::make_unique<PlayerProjectile>();
       bolt->SetX(thePlayer_.GetWidth() / 2);
+      bolt->SetY(thePlayer_.GetY());
       lBolts_.push_back(std::move(bolt));
     }
   }
