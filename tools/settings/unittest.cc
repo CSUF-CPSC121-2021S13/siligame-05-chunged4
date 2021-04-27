@@ -536,7 +536,7 @@ void LaunchProjectile() {
   
   bool has_projectile = false;
   for (int i = 0; i < 100 && !has_projectile; i++) {
-    my_game.LaunchProjectile();
+    opponents.LaunchProjectile();
     if (my_game.GetOpponentProjectiles().size() > 0) {
       has_projectile = true;
     }
