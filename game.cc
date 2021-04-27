@@ -52,8 +52,7 @@ void Game::UpdateScreen() {
   }
   gameScreen_.DrawRectangle(0, 0, gameScreen_.GetWidth(),
                             gameScreen_.GetHeight(), lightBlue);
-  std::string scoreMsg = "Score: ";
-  scoreMsg.append((char *)score_);
+  std::string scoreMsg("Score: " + std::to_string(score_));
   gameScreen_.DrawText(0, 0, scoreMsg, 30, black);
   for (int i = 0; i < enemies_.size(); i++) {
     if (enemies_[i]->GetIsActive() && enemies_[i]->GetToggle() == 1) {
