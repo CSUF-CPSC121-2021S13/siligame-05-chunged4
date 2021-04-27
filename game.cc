@@ -26,8 +26,8 @@ void Game::Init() {
   int xPos = gameScreen_.GetWidth() / 2;
   int yPos = gameScreen_.GetWidth() * .75;
   for (int i = 0; i < enemies_.size(); i++) {
-    if (enemies_[i]->LaunchProjectiles() != nullptr) {
-      balls_.push_back(std::move(enemies_[i]->LaunchProjectiles()));
+    if (enemies_[i]->LaunchProjectile() != nullptr) {
+      balls_.push_back(std::move(enemies_[i]->LaunchProjectile()));
     }
   }
   thePlayer_.SetX(xPos);
@@ -127,7 +127,7 @@ void Game::OnAnimationStep() {
   }
   MoveGameElements();
   for (int i = 0; i < enemies_.size(); i++) {
-    enemies_[i]->LaunchProjectiles();
+    enemies_[i]->LaunchProjectile();
   }
   FilterIntersections();
   RemoveInactive();

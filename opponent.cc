@@ -92,7 +92,7 @@ void Opponent::Move(const graphics::Image &image) {
     SetIsActive(false);
   }
 }
-std::unique_ptr<OpponentProjectile> Opponent::LaunchProjectiles() {
+std::unique_ptr<OpponentProjectile> Opponent::LaunchProjectile() {
   shootCounter_++;
   std::unique_ptr<OpponentProjectile> oProj_ptr = std::make_unique<OpponentProjectile>();
   oProj_ptr->SetX(GetWidth() / 2);

@@ -32,7 +32,7 @@ class Opponent : public GameElement {
   void Draw(graphics::Image &image) override;
   void DrawBackwords(graphics::Image &image);
   void Move(const graphics::Image &image) override;
-  std::unique_ptr<OpponentProjectile> LaunchProjectiles();
+  std::unique_ptr<OpponentProjectile> LaunchProjectile();
 
  private:
   bool XToggle_;
