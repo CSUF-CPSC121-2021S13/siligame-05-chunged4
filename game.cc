@@ -179,13 +179,11 @@ void Game::LaunchProjectiles() {
 void Game::OnAnimationStep() {
   if (enemies_.size() == 0) {
     CreateOpponents();
-    CreateOpponents();
-    CreateOpponents();
   }
   MoveGameElements();
   LaunchProjectiles();
   FilterIntersections();
-  RemoveInactive();
+  // RemoveInactive();
   UpdateScreen();
   gameScreen_.Flush();
 }
