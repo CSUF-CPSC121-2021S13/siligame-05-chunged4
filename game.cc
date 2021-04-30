@@ -182,8 +182,8 @@ void Game::OnAnimationStep() {
   }
   MoveGameElements();
   LaunchProjectiles();
-  // FilterIntersections();
-  // RemoveInactive();
+  FilterIntersections();
+  RemoveInactive();
   UpdateScreen();
   gameScreen_.Flush();
 }
