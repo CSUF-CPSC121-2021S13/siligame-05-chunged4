@@ -129,17 +129,17 @@ void Game::FilterIntersections() {
 void Game::RemoveInactive() {
   for (int i = enemies_.size(); i < 0; i--) {
     if (!(enemies_[i]->GetIsActive())) {
-      enemies_.erase(enemies_.begin() + i);
+      enemies_.erase(enemies_.end() - (enemies_.size() - i));
     }
   }
   for (int i = balls_.size(); i < 0; i--) {
     if (!(balls_[i]->GetIsActive())) {
-      balls_.erase(balls_.begin() + i);
+      balls_.erase(balls_.end() - (balls_.size() - i));
     }
   }
   for (int i = lBolts_.size(); i < 0; i--) {
     if (!(lBolts_[i]->GetIsActive())) {
-      lBolts_.erase(lBolts_.begin() + i);
+      lBolts_.erase(lBolts_.end() - (lBolts_.size() - i));
     }
   }
 }
@@ -161,7 +161,7 @@ void Game::OnAnimationStep() {
   MoveGameElements();
   LaunchProjectiles();
   FilterIntersections();
-  // RemoveInactive();
+  RemoveInactive();
   UpdateScreen();
   gameScreen_.Flush();
 }
