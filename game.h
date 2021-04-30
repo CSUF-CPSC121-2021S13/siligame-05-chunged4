@@ -36,6 +36,7 @@ class Game : public graphics::AnimationEventListener,
   void OnAnimationStep() override;
   void OnMouseEvent(const graphics::MouseEvent &event) override;
   void RemoveInactive();
+  void LaunchProjectiles();
 
  private:
   graphics::Image gameScreen_;

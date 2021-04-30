@@ -118,7 +118,7 @@ void Game::FilterIntersections() {
   // playerprojectile vs opponent intersections
   for (int i = 0; i < lBolts_.size(); i++) {
     for (int j = 0; j < enemies_.size(); j++) {
-      if (lBolts_[i]->IntersectsWith(enemies_[j].get())  && thePlayer_.GetIsActive()) {
+      if (lBolts_[i]->IntersectsWith(enemies_[j].get()) && thePlayer_.GetIsActive()) {
         lBolts_[i]->SetIsActive(false);
         enemies_[j]->SetIsActive(false);
         score_++;
@@ -127,19 +127,28 @@ void Game::FilterIntersections() {
   }
 }
 void Game::RemoveInactive() {
-  for (int i = enemies_.size(); i > 0; i--) {
+  for (int i = enemies_.size(); i < 0; i--) {
     if (!(enemies_[i]->GetIsActive())) {
       enemies_.erase(enemies_.begin() + i);
     }
   }
-  for (int i = balls_.size(); i > 0; i--) {
+  for (int i = balls_.size(); i < 0; i--) {
     if (!(balls_[i]->GetIsActive())) {
       balls_.erase(balls_.begin() + i);
     }
   }
-  for (int i = lBolts_.size(); i > 0; i--) {
+  for (int i = lBolts_.size(); i < 0; i--) {
     if (!(lBolts_[i]->GetIsActive())) {
       lBolts_.erase(lBolts_.begin() + i);
+    }
+  }
+}
+void Game::LaunchProjectiles() {
+  for (int i = 0; i < enemies_.size(); i++) {
+    if (enemies_[i]->GetIsActive()) {
+      if (enemies_[i]->LaunchProjectile() != nullptr) {
+        balls_.push_back(std::move(enemies_[i]->LaunchProjectile()));
+      }
     }
   }
 }
@@ -150,9 +159,7 @@ void Game::OnAnimationStep() {
     CreateOpponents();
   }
   MoveGameElements();
-  for (int i = 0; i < enemies_.size(); i++) {
-    enemies_[i]->LaunchProjectile();
-  }
+  LaunchProjectiles();
   FilterIntersections();
   // RemoveInactive();
   UpdateScreen();
