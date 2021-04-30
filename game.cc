@@ -21,6 +21,8 @@ int Game::GetScore() const { return score_; }
 bool Game::HasLost() const { return playing_; }
 
 // Member Functions
+// *CreateOpponents() creates an opponent with a feature to randomly place
+// the opponent object somewhere on the screen*
 void Game::CreateOpponents() {
   std::unique_ptr<Opponent> opponent = std::make_unique<Opponent>();
   int xPos = rand() % (gameScreen_.GetWidth() - opponent->GetWidth() / 2) +
@@ -31,24 +33,29 @@ void Game::CreateOpponents() {
   opponent->SetY(yPos);
   GetOpponents().push_back(std::move(opponent));
 }
+// Init() starts up the game with a random position for the player, and adds
+// a mouse and animation event listener to the graphics::Image object, gameScreen_
 void Game::Init() {
   int xPos = gameScreen_.GetWidth() / 2;
   int yPos = gameScreen_.GetWidth() * .75;
-  for (int i = 0; i < enemies_.size(); i++) {
-    if (enemies_[i]->LaunchProjectile() != nullptr) {
-      balls_.push_back(std::move(enemies_[i]->LaunchProjectile()));
-    }
-  }
   thePlayer_.SetX(xPos);
   thePlayer_.SetY(yPos);
   gameScreen_.AddMouseEventListener(*this);
   gameScreen_.AddAnimationEventListener(*this);
 }
+// UpdateScreen() will have checks for if (1.) if a player has lost, (2.) the score,
+// (3.) redrawing the background on the screen, and drawing the rest of the game elements
+// Actions as follows: (1.) displys "GAME OVER" on screen once lost
+// (2.) updates score after an opponent is hit
+// (3.) calls the Draw() of each game element that is active
+// Feature to call DrawBackwords() for the oppoenent and player depending on the toggle that
+// determines which way they are facing         
 void Game::UpdateScreen() {
   graphics::Color black(0, 0, 0);
   if (HasLost()) {
+    std::string endGameMsg("GAME OVER\n YOU GOT A SCORE OF: " + std::to_string(score_));
     gameScreen_.DrawText(gameScreen_.GetWidth() / 2,
-                         gameScreen_.GetHeight() / 2, "GAME OVER", 200, black);
+                         gameScreen_.GetHeight() / 2, endGameMsg, 200, black);
   }
   gameScreen_.DrawRectangle(0, 0, gameScreen_.GetWidth(),
                             gameScreen_.GetHeight(), lightBlue);
@@ -77,7 +84,9 @@ void Game::UpdateScreen() {
     thePlayer_.DrawBackwords(gameScreen_);
   }
 }
+// Start() shows the screen displayed and exits the program when closed
 void Game::Start() { gameScreen_.ShowUntilClosed(); }
+// MoveGameElements() calls the move function of each game element object
 void Game::MoveGameElements() {
   for (int i = 0; i < enemies_.size(); i++) {
     if (enemies_[i]->GetIsActive()) {
@@ -98,6 +107,8 @@ void Game::MoveGameElements() {
     thePlayer_.Move(gameScreen_);
   }
 }
+// FilterIntersections() checks for intersects and handles setting those specific
+// game elements false when hit
 void Game::FilterIntersections() {
   // player vs opponent intersections
   for (int i = 0; i < enemies_.size(); i++) {
@@ -121,11 +132,17 @@ void Game::FilterIntersections() {
       if (lBolts_[i]->IntersectsWith(enemies_[j].get()) && thePlayer_.GetIsActive()) {
         lBolts_[i]->SetIsActive(false);
         enemies_[j]->SetIsActive(false);
-        score_++;
       }
     }
   }
+  for (int i = 0; i < enemies_.size(); i++) {
+    if (!(enemies_[i]->GetIsActive())) {
+      score_++;
+    }
+  }
 }
+// RemoveInactive() goes through each game element and makes sure to remove them
+// out of the vector in order to keep the game running and smooth
 void Game::RemoveInactive() {
   for (int i = enemies_.size(); i < 0; i--) {
     if (!(enemies_[i]->GetIsActive())) {
@@ -143,6 +160,9 @@ void Game::RemoveInactive() {
     }
   }
 }
+// LaunchProjectiles() goes through each Opponent object in the vector and calls
+// the Opponent::LaunchProjectile() function and will add the non-nullptr projecties
+// into the <OpponenentProjectile> vector
 void Game::LaunchProjectiles() {
   for (int i = 0; i < enemies_.size(); i++) {
     if (enemies_[i]->GetIsActive()) {
@@ -152,6 +172,7 @@ void Game::LaunchProjectiles() {
     }
   }
 }
+// OnAnimationStep() is a listener run every millisecond, making the animations run smoothly
 void Game::OnAnimationStep() {
   if (enemies_.size() == 0) {
     CreateOpponents();
@@ -165,6 +186,9 @@ void Game::OnAnimationStep() {
   UpdateScreen();
   gameScreen_.Flush();
 }
+// OnMouseEvent() is a listener that takes in input from the mouse as an event and
+// and the function uses the event to update the player's movement using the mouse 
+// coordinates and the player's actions using the mouse's key presses
 void Game::OnMouseEvent(const graphics::MouseEvent &event) {
   if (event.GetX() > 0 || event.GetX() < gameScreen_.GetWidth() ||
       event.GetY() > 0 || event.GetY() < gameScreen_.GetHeight()) {
