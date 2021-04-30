@@ -169,7 +169,7 @@ void Game::LaunchProjectiles() {
       std::cout << "Is active" << std::endl;
       if (enemies_[i]->LaunchProjectile() != nullptr) {
         std::cout << "shooting" << std::endl;
-        balls_.push_back(std::move(enemies_[i]->LaunchProjectile()));
+        balls_.push_back(enemies_[i]->LaunchProjectile());
         std::cout << balls_.size() << std::endl;
       }
     }
