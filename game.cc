@@ -171,7 +171,7 @@ void Game::LaunchProjectiles() {
         std::cout << "shooting" << std::endl;
         std::unique_ptr<OpponentProjectile> oProj_ptr =
       std::make_unique<OpponentProjectile>();
-        balls_.push_back(oProj_ptr);
+        balls_.push_back(std::move(oProj_ptr));
         std::cout << balls_.size() << std::endl;
       }
     }
