@@ -31,7 +31,7 @@ void Game::CreateOpponents() {
                        opponent->GetHeight() / 2;
   opponent->SetX(xPos);
   opponent->SetY(yPos);
-  GetOpponents().push_back(std::move(opponent));
+  enemies_.push_back(std::move(opponent));
 }
 // Init() starts up the game with a random position for the player, and adds
 // a mouse and animation event listener to the graphics::Image object, gameScreen_
@@ -166,8 +166,11 @@ void Game::RemoveInactive() {
 void Game::LaunchProjectiles() {
   for (int i = 0; i < enemies_.size(); i++) {
     if (enemies_[i]->GetIsActive()) {
+      std::cout << "Is active" << std::endl;
       if (enemies_[i]->LaunchProjectile() != nullptr) {
+        std::cout << "shooting" << std::endl;
         balls_.push_back(std::move(enemies_[i]->LaunchProjectile()));
+        std::cout << balls_.size() << std::endl;
       }
     }
   }
