@@ -210,7 +210,7 @@ void Game::OnAnimationStep() {
   if (enemies_.size() == 0) {
     CreateOpponents();
   }
-  // MoveGameElements();
+  MoveGameElements();
   // LaunchProjectiles();
   // FilterIntersections();
   // RemoveInactive();
