@@ -210,11 +210,11 @@ void Game::OnAnimationStep() {
   if (enemies_.size() == 0) {
     CreateOpponents();
   }
-  MoveGameElements();
-  LaunchProjectiles();
-  FilterIntersections();
-  RemoveInactive();
-  UpdateScreen();
+  // MoveGameElements();
+  // LaunchProjectiles();
+  // FilterIntersections();
+  // RemoveInactive();
+  // UpdateScreen();
   gameScreen_.Flush();
 }
 // OnMouseEvent() is a listener that takes in input from the mouse as an event and
