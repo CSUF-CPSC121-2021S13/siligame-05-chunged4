@@ -168,30 +168,30 @@ void Game::FilterIntersections() {
 // RemoveInactive() goes through each game element and makes sure to remove them
 // out of the vector in order to keep the game running and smooth
 void Game::RemoveInactive() {
-  // for (int i = enemies_.size(); i < 0; i--) {
-  //   if (!(enemies_[i]->GetIsActive())) {
-  //     enemies_.erase(enemies_.end() - (enemies_.size() - i));
-  //   }
-  // }
-  while(enemies_.size() > 0 && !(enemies_[0]->GetIsActive())) {
-    enemies_.erase(enemies_.begin());
+  for (int i = enemies_.size(); i > 0; i--) {
+    if (!(enemies_[i]->GetIsActive())) {
+      enemies_.erase(enemies_.end() - (enemies_.size() - i));
+    }
   }
-  // for (int i = balls_.size(); i < 0; i--) {
-  //   if (!(balls_[i]->GetIsActive())) {
-  //     balls_.erase(balls_.end() - (balls_.size() - i));
-  //   }
+  // while(enemies_.size() > 0 && !(enemies_[0]->GetIsActive())) {
+  //   enemies_.erase(enemies_.begin());
   // }
-  while(balls_.size() > 0 && !(balls_[0]->GetIsActive())) {
-    balls_.erase(balls_.begin());
+  for (int i = balls_.size(); i > 0; i--) {
+    if (!(balls_[i]->GetIsActive())) {
+      balls_.erase(balls_.end() - (balls_.size() - i));
+    }
   }
-  // for (int i = lBolts_.size(); i < 0; i--) {
-  //   if (!(lBolts_[i]->GetIsActive())) {
-  //     lBolts_.erase(lBolts_.end() - (lBolts_.size() - i));
-  //   }
+  // while(balls_.size() > 0 && !(balls_[0]->GetIsActive())) {
+  //   balls_.erase(balls_.begin());
   // }
-  while(lBolts_.size() > 0 && !(lBolts_[0]->GetIsActive())) {
-    lBolts_.erase(lBolts_.begin());
+  for (int i = lBolts_.size(); i > 0; i--) {
+    if (!(lBolts_[i]->GetIsActive())) {
+      lBolts_.erase(lBolts_.end() - (lBolts_.size() - i));
+    }
   }
+  // while(lBolts_.size() > 0 && !(lBolts_[0]->GetIsActive())) {
+  //   lBolts_.erase(lBolts_.begin());
+  // }
 }
 // LaunchProjectiles() goes through each Opponent object in the vector and calls
 // the Opponent::LaunchProjectile() function and will add the non-nullptr projecties
