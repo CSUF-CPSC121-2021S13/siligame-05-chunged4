@@ -99,7 +99,7 @@ std::unique_ptr<OpponentProjectile> Opponent::LaunchProjectile() {
   oProj_ptr->SetY(GetHeight() + GetY());
   if (shootCounter_ % 10 == 0) {
     shootCounter_ = 0;
-    return oProj_ptr;
+    return std::move(oProj_ptr);
   } else {
     return nullptr;
   }
