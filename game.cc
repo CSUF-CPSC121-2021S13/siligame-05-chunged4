@@ -2,7 +2,7 @@
 
 // constructors
 Game::Game() : Game(800, 600) {}
-Game::Game(int width, int height) : score_(0) { gameScreen_.Initialize(width, height); }
+Game::Game(int width, int height) : score_(0), lost_(false) { gameScreen_.Initialize(width, height); }
 
 // getters/setters
 graphics::Image &Game::GetGameScreen() { return gameScreen_; }
@@ -18,7 +18,7 @@ std::vector<std::unique_ptr<PlayerProjectile>> &Game::GetPlayerProjectiles() {
 }
 Player &Game::GetPlayer() { return thePlayer_; }
 int Game::GetScore() const { return score_; }
-bool Game::HasLost() const { return playing_; }
+bool Game::HasLost() const { return lost_; }
 
 // Member Functions
 // *CreateOpponents() creates an opponent with a feature to randomly place
@@ -112,7 +112,7 @@ void Game::FilterIntersections() {
     if (enemies_[i]->GetIsActive() && thePlayer_.GetIsActive() && enemies_[i]->IntersectsWith(&thePlayer_)) {
       enemies_[i]->SetIsActive(false);
       thePlayer_.SetIsActive(false);
-      playing_ = false;
+      lost_ = true;
     }
   }
   // player vs opponentprojectile intersections
@@ -120,7 +120,7 @@ void Game::FilterIntersections() {
     if (balls_[i]->GetIsActive() && thePlayer_.GetIsActive() && balls_[i]->IntersectsWith(&thePlayer_)) {
       balls_[i]->SetIsActive(false);
       thePlayer_.SetIsActive(false);
-      playing_ = false;
+      lost_ = true;
     }
   }
   // playerprojectile vs opponent intersections

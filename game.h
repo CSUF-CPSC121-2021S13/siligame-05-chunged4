@@ -45,7 +45,7 @@ class Game : public graphics::AnimationEventListener,
   std::vector<std::unique_ptr<PlayerProjectile>> lBolts_;
   Player thePlayer_;
   int score_;
-  bool playing_;
+  bool lost_;
 };
 
 #endif
