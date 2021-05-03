@@ -79,7 +79,7 @@ void Game::UpdateScreen() {
     thePlayer_.DrawBackwords(gameScreen_);
   }
   if (HasLost()) {
-    std::string endGameMsg("GAME OVER\n YOU GOT A SCORE OF: " + std::to_string(score_));
+    std::string endGameMsg("GAME OVER\nYOUR SCORE IS: \n" + std::to_string(score_));
     gameScreen_.DrawText(gameScreen_.GetWidth() / 4,
                          gameScreen_.GetHeight() / 3, endGameMsg, 75, black);
   }
@@ -130,14 +130,15 @@ void Game::FilterIntersections() {
         lBolts_[j]->IntersectsWith(enemies_[i].get())) {
         lBolts_[j]->SetIsActive(false);
         enemies_[i]->SetIsActive(false);
+        score_++;
       }
     }
   }
-  for (int i = 0; i < enemies_.size(); i++) {
-    if (!(enemies_[i]->GetIsActive())) {
-      score_++;
-    }
-  }
+  // for (int i = 0; i < enemies_.size(); i++) {
+  //   if (!(enemies_[i]->GetIsActive())) {
+  //     score_++;
+  //   }
+  // }
 }
 // RemoveInactive() goes through each game element and makes sure to remove them
 // out of the vector in order to keep the game running and smooth
@@ -166,7 +167,7 @@ void Game::LaunchProjectiles() {
     if (enemies_[i]->GetIsActive()) {
       if (enemies_[i]->LaunchProjectile() != nullptr) {
         std::unique_ptr<OpponentProjectile> oProj = enemies_[i]->LaunchProjectile();
-        balls_.push_back(std::move(oProj));
+        balls_.push_back(oProj);
       }
     }
   }
