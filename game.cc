@@ -142,18 +142,18 @@ void Game::FilterIntersections() {
 // RemoveInactive() goes through each game element and makes sure to remove them
 // out of the vector in order to keep the game running and smooth
 void Game::RemoveInactive() {
-  for (int i = enemies_.size(); i > 0; i--) {
+  for (int i = enemies_.size() - 1; i > 0; i--) {
     if (!(enemies_[i]->GetIsActive())) {
       enemies_.erase(enemies_.end() - (enemies_.size() - i));
       std::cout << "enemy is gone" << std::endl;
     }
   }
-  // for (int i = balls_.size(); i > 0; i--) {
+  // for (int i = balls_.size() - 1; i > 0; i--) {
   //   if (!(balls_[i]->GetIsActive())) {
   //     balls_.erase(balls_.end() - (balls_.size() - i));
   //   }
   // }
-  for (int i = lBolts_.size(); i > 0; i--) {
+  for (int i = lBolts_.size() - 1; i > 0; i--) {
     if (!(lBolts_[i]->GetIsActive())) {
       lBolts_.erase(lBolts_.end() - (lBolts_.size() - i));
       std::cout << "lbolt is gone" << std::endl;
