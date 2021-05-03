@@ -167,7 +167,7 @@ void Game::LaunchProjectiles() {
     if (enemies_[i]->GetIsActive()) {
       if (enemies_[i]->LaunchProjectile() != nullptr) {
         std::unique_ptr<OpponentProjectile> oProj = enemies_[i]->LaunchProjectile();
-        balls_.push_back(oProj);
+        balls_.push_back(std::move(oProj));
       }
     }
   }
