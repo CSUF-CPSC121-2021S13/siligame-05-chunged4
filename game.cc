@@ -81,7 +81,7 @@ void Game::UpdateScreen() {
   if (HasLost()) {
     std::string endGameMsg("GAME OVER\n YOU GOT A SCORE OF: " + std::to_string(score_));
     gameScreen_.DrawText(gameScreen_.GetWidth() / 2,
-                         gameScreen_.GetHeight() / 2, endGameMsg, 200, black);
+                         gameScreen_.GetHeight() / 2, endGameMsg, 75, black);
   }
 }
 // Start() shows the screen displayed and exits the program when closed
