@@ -128,8 +128,8 @@ void Game::FilterIntersections() {
     for (int j = 0; j < lBolts_.size(); j++) {
       if (enemies_[i]->GetIsActive() && lBolts_[j]->GetIsActive() &&
         lBolts_[j]->IntersectsWith(enemies_[i].get())) {
-        lBolts_[i]->SetIsActive(false);
-        enemies_[j]->SetIsActive(false);
+        lBolts_[j]->SetIsActive(false);
+        enemies_[i]->SetIsActive(false);
       }
     }
   }
