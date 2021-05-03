@@ -166,8 +166,8 @@ void Game::RemoveInactive() {
 void Game::LaunchProjectiles() {
   for (int i = 0; i < enemies_.size(); i++) {
     if (enemies_[i]->GetIsActive()) {
-      if (enemies_[i]->LaunchProjectile() != nullptr) {
-        std::unique_ptr<OpponentProjectile> oProj = enemies_[i]->LaunchProjectile();
+      std::unique_ptr<OpponentProjectile> oProj = enemies_[i]->LaunchProjectile();
+      if (oProj != nullptr) {
         balls_.push_back(std::move(oProj));
       }
     }
