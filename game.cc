@@ -110,30 +110,6 @@ void Game::MoveGameElements() {
 // FilterIntersections() checks for intersects and handles setting those specific
 // game elements false when hit
 void Game::FilterIntersections() {
-//   for (int i = 0; i < enemies_.size(); i++) {
-//     if (enemies_[i]->GetIsActive() && thePlayer_.GetIsActive() &&
-//         thePlayer_.IntersectsWith(enemies_[i].get())) {
-//       enemies_[i]->SetIsActive(false);
-//       thePlayer_.SetIsActive(false);
-//     } else {
-//       for (int j = 0; j < lBolts_.size(); j++) {
-//         if (enemies_[i]->GetIsActive() &&
-//             lBolts_[j]->GetIsActive() &&
-//             lBolts_[j]->IntersectsWith(enemies_[i].get())) {
-//           enemies_[i]->SetIsActive(false);
-//           lBolts_[j]->SetIsActive(false);
-//         }
-//       }
-//     }
-//   }
-//   for (int i = 0; i < balls_.size(); i++) {
-//     if (balls_[i]->GetIsActive() && thePlayer_.GetIsActive() &&
-//         thePlayer_.IntersectsWith(balls_[i].get())) {
-//       balls_[i]->SetIsActive(false);
-//       thePlayer_.SetIsActive(false);
-//     }
-//   }
-// }
   // player vs opponent intersections
   for (int i = 0; i < enemies_.size(); i++) {
     if (enemies_[i]->IntersectsWith(&thePlayer_)) {
@@ -173,25 +149,16 @@ void Game::RemoveInactive() {
       enemies_.erase(enemies_.end() - (enemies_.size() - i));
     }
   }
-  // while(enemies_.size() > 0 && !(enemies_[0]->GetIsActive())) {
-  //   enemies_.erase(enemies_.begin());
-  // }
   for (int i = balls_.size(); i > 0; i--) {
     if (!(balls_[i]->GetIsActive())) {
       balls_.erase(balls_.end() - (balls_.size() - i));
     }
   }
-  // while(balls_.size() > 0 && !(balls_[0]->GetIsActive())) {
-  //   balls_.erase(balls_.begin());
-  // }
   for (int i = lBolts_.size(); i > 0; i--) {
     if (!(lBolts_[i]->GetIsActive())) {
       lBolts_.erase(lBolts_.end() - (lBolts_.size() - i));
     }
   }
-  // while(lBolts_.size() > 0 && !(lBolts_[0]->GetIsActive())) {
-  //   lBolts_.erase(lBolts_.begin());
-  // }
 }
 // LaunchProjectiles() goes through each Opponent object in the vector and calls
 // the Opponent::LaunchProjectile() function and will add the non-nullptr projecties
