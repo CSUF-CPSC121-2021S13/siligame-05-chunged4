@@ -79,6 +79,7 @@ void Game::UpdateScreen() {
     thePlayer_.DrawBackwords(gameScreen_);
   }
   if (HasLost()) {
+    gameScreen_.DrawRectangle(0, 0, gameScreen_.GetWidth(), gameScreen_.GetHeight(), lightBlue);
     std::string endGameMsg("GAME OVER\nYOUR SCORE IS: \n" + std::to_string(score_));
     gameScreen_.DrawText(gameScreen_.GetWidth() / 4,
                          gameScreen_.GetHeight() / 3, endGameMsg, 75, black);
