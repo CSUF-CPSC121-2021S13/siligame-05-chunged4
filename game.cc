@@ -103,16 +103,13 @@ void Game::MoveGameElements() {
       lBolts_[i]->Move(gameScreen_);
     }
   }
-  if (thePlayer_.GetIsActive()) {
-    thePlayer_.Move(gameScreen_);
-  }
 }
 // FilterIntersections() checks for intersects and handles setting those specific
 // game elements false when hit
 void Game::FilterIntersections() {
   // player vs opponent intersections
   for (int i = 0; i < enemies_.size(); i++) {
-    if (enemies_[i]->IntersectsWith(&thePlayer_)) {
+    if (enemies_[i]->GetIsActive() && thePlayer_.GetIsActive() && enemies_[i]->IntersectsWith(&thePlayer_)) {
       enemies_[i]->SetIsActive(false);
       thePlayer_.SetIsActive(false);
       playing_ = false;
@@ -120,16 +117,17 @@ void Game::FilterIntersections() {
   }
   // player vs opponentprojectile intersections
   for (int i = 0; i < balls_.size(); i++) {
-    if (balls_[i]->IntersectsWith(&thePlayer_)) {
+    if (balls_[i]->GetIsActive() && thePlayer_.GetIsActive() && balls_[i]->IntersectsWith(&thePlayer_)) {
       balls_[i]->SetIsActive(false);
       thePlayer_.SetIsActive(false);
       playing_ = false;
     }
   }
   // playerprojectile vs opponent intersections
-  for (int i = 0; i < lBolts_.size(); i++) {
-    for (int j = 0; j < enemies_.size(); j++) {
-      if (lBolts_[i]->IntersectsWith(enemies_[j].get()) && thePlayer_.GetIsActive()) {
+  for (int i = 0; i < enemies_.size(); i++) {
+    for (int j = 0; j < lBolts_.size(); j++) {
+      if (enemies_[i]->GetIsActive() && lBolts_[j]->GetIsActive() &&
+        lBolts_[j]->IntersectsWith(enemies_[i].get())) {
         lBolts_[i]->SetIsActive(false);
         enemies_[j]->SetIsActive(false);
       }
@@ -179,7 +177,7 @@ void Game::OnAnimationStep() {
   }
   MoveGameElements();
   LaunchProjectiles();
-  // FilterIntersections();
+  FilterIntersections();
   RemoveInactive();
   UpdateScreen();
   gameScreen_.Flush();
