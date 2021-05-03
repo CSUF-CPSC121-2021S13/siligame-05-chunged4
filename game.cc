@@ -145,7 +145,7 @@ void Game::RemoveInactive() {
   for (int i = enemies_.size() - 1; i > 0; i--) {
     if (!(enemies_[i]->GetIsActive())) {
       enemies_.erase(enemies_.end() - (enemies_.size() - i));
-      std::cout << "enemy is gone" << std::endl;
+      std::cout << "enemy is gone" << i << std::endl;
     }
   }
   // for (int i = balls_.size() - 1; i > 0; i--) {
@@ -156,7 +156,7 @@ void Game::RemoveInactive() {
   for (int i = lBolts_.size() - 1; i > 0; i--) {
     if (!(lBolts_[i]->GetIsActive())) {
       lBolts_.erase(lBolts_.end() - (lBolts_.size() - i));
-      std::cout << "lbolt is gone" << std::endl;
+      std::cout << "lbolt is gone" << i << std::endl;
     }
   }
 }
