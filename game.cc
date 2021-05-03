@@ -80,8 +80,8 @@ void Game::UpdateScreen() {
   }
   if (HasLost()) {
     gameScreen_.DrawRectangle(0, 0, gameScreen_.GetWidth(), gameScreen_.GetHeight(), lightBlue);
-    std::string endGameMsg("GAME OVER\nYOUR SCORE IS: \n" + std::to_string(score_));
-    gameScreen_.DrawText(gameScreen_.GetWidth() / 4,
+    std::string endGameMsg("GAME OVER\nYOUR SCORE IS: " + std::to_string(score_));
+    gameScreen_.DrawText(gameScreen_.GetWidth() / 5,
                          gameScreen_.GetHeight() / 3, endGameMsg, 75, black);
   }
 }
