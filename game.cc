@@ -180,7 +180,7 @@ void Game::OnAnimationStep() {
   MoveGameElements();
   LaunchProjectiles();
   FilterIntersections();
-  // RemoveInactive();
+  RemoveInactive();
   UpdateScreen();
   gameScreen_.Flush();
 }
