@@ -1,0 +1,29 @@
+---
+MainSourceFile:  /root/sandbox/siligame-05-chunged4/player.cc
+Diagnostics:     
+  - DiagnosticName:  clang-diagnostic-error
+    Message:         '''stddef.h'' file not found'
+    FileOffset:      1165
+    FilePath:        /usr/include/wchar.h
+    Replacements:    
+  - DiagnosticName:  clang-diagnostic-error
+    Message:         '''stddef.h'' file not found'
+    FileOffset:      955
+    FilePath:        /usr/include/time.h
+    Replacements:    
+  - DiagnosticName:  clang-diagnostic-error
+    Message:         '''stddef.h'' file not found'
+    FileOffset:      1165
+    FilePath:        /usr/include/wchar.h
+    Replacements:    
+  - DiagnosticName:  clang-diagnostic-error
+    Message:         '''stddef.h'' file not found'
+    FileOffset:      1334
+    FilePath:        '/usr/lib/gcc/x86_64-linux-gnu/7.5.0/../../../../include/c++/7.5.0/bits/cxxabi_init_exception.h'
+    Replacements:    
+  - DiagnosticName:  clang-diagnostic-error
+    Message:         '''stddef.h'' file not found'
+    FileOffset:      1334
+    FilePath:        '/usr/lib/gcc/x86_64-linux-gnu/7.5.0/../../../../include/c++/7.5.0/bits/cxxabi_init_exception.h'
+    Replacements:    
+...
