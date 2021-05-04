@@ -114,6 +114,16 @@ void Game::FilterIntersections() {
       enemies_[i]->SetIsActive(false);
       thePlayer_.SetIsActive(false);
       lost_ = true;
+    } else {
+      // playerprojectile vs opponent intersections
+      for (int j = 0; j < lBolts_.size(); j++) {
+        if (enemies_[i]->GetIsActive() && lBolts_[j]->GetIsActive() &&
+          lBolts_[j]->IntersectsWith(enemies_[i].get())) {
+          lBolts_[j]->SetIsActive(false);
+          enemies_[i]->SetIsActive(false);
+          score_++;
+        }
+      }
     }
   }
   // player vs opponentprojectile intersections
@@ -124,22 +134,6 @@ void Game::FilterIntersections() {
       lost_ = true;
     }
   }
-  // playerprojectile vs opponent intersections
-  for (int i = 0; i < enemies_.size(); i++) {
-    for (int j = 0; j < lBolts_.size(); j++) {
-      if (enemies_[i]->GetIsActive() && lBolts_[j]->GetIsActive() &&
-        lBolts_[j]->IntersectsWith(enemies_[i].get())) {
-        lBolts_[j]->SetIsActive(false);
-        enemies_[i]->SetIsActive(false);
-        score_++;
-      }
-    }
-  }
-  // for (int i = 0; i < enemies_.size(); i++) {
-  //   if (!(enemies_[i]->GetIsActive())) {
-  //     score_++;
-  //   }
-  // }
 }
 // RemoveInactive() goes through each game element and makes sure to remove them
 // out of the vector in order to keep the game running and smooth
