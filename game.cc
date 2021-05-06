@@ -127,7 +127,9 @@ void Game::FilterIntersections() {
             lBolts_[j]->IntersectsWith(enemies_[i].get())) {
           lBolts_[j]->SetIsActive(false);
           enemies_[i]->SetIsActive(false);
-          score_++;
+          if (thePlayer_.GetIsActive()) {
+            score_++;
+          }
         }
       }
     }
