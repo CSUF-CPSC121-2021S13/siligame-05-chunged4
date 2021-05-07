@@ -1,0 +1,27 @@
+[
+ {
+ "directory" : "/root/sandbox/siligame-05-chunged4",
+ "command" : "clang++ -std=c++17 main.cc -o main",
+ "file" : "/root/sandbox/siligame-05-chunged4/main.cc"
+ },
+ {
+ "directory" : "/root/sandbox/siligame-05-chunged4",
+ "command" : "clang++ -std=c++17 player.cc -o main",
+ "file" : "/root/sandbox/siligame-05-chunged4/player.cc"
+ },
+ {
+ "directory" : "/root/sandbox/siligame-05-chunged4",
+ "command" : "clang++ -std=c++17 opponent.cc -o main",
+ "file" : "/root/sandbox/siligame-05-chunged4/opponent.cc"
+ },
+ {
+ "directory" : "/root/sandbox/siligame-05-chunged4",
+ "command" : "clang++ -std=c++17 game_element.cc -o main",
+ "file" : "/root/sandbox/siligame-05-chunged4/game_element.cc"
+ },
+ {
+ "directory" : "/root/sandbox/siligame-05-chunged4",
+ "command" : "clang++ -std=c++17 game.cc -o main",
+ "file" : "/root/sandbox/siligame-05-chunged4/game.cc"
+ },
+]
